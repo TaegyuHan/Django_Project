@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from . import db_setting
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hy8y$s^g83!bq+b6bdt$88m^ocfy8gt1nf-%85jy7b1_7y@%^m'
+SECRET_KEY = db_setting.SECRET_KEY
+# SECRET_KEY = 'django-insecure-hy8y$s^g83!bq+b6bdt$88m^ocfy8gt1nf-%85jy7b1_7y@%^m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["34.64.175.9"]
+# ALLOWED_HOSTS = ["34.64.175.9"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 추가한 앱
+    'quiz',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +81,14 @@ WSGI_APPLICATION = 'microdomains.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = db_setting.DATABASES
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
