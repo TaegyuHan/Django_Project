@@ -28,8 +28,8 @@ SECRET_KEY = db_setting.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ["34.64.175.9"]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["34.64.175.9"]
+# ALLOWED_HOSTS = []
 
 
 # Application definition
