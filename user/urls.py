@@ -6,6 +6,6 @@ from .views import (
 
 urlpatterns = [
     path("join", UserJoinAPIView.as_view()),
-    path("delete", UserDeleteAPIView.as_view()),\
+    path("delete", UserDeleteAPIView.as_view()),
     path("login", UserLoginAPIView.as_view()),
 ]

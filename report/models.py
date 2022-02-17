@@ -26,6 +26,9 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta: # 추천 수 정렬
+        ordering = ['-recommendation']
+
     def __str__(self):
         return f"ID: {self.id} => {self.title}"
 

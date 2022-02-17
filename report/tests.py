@@ -231,15 +231,6 @@ class UserTestCase(TestCase):
         self.assertEqual(request.status_code,
                          status.HTTP_201_CREATED)
 
-
-
-
-
-
-
-
-
-
     def test_comment_get(self):
         request = self.client.get(
             path="https://localhost:8000/report/comment/"
