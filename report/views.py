@@ -211,6 +211,30 @@ class ReportDetailCommentsAPIView(APIView):
         return Response(json_data, status=status.HTTP_200_OK)
 
 
+class ReportDetailImageAPIView(APIView):
+    """ 보고서 디테일 이미지
+
+        - GET : 디테일 이미지 리스트
+    """
+
+    def get(self, request, id):
+        model = ReportImage.objects.filter(report=id)
+        serializer = ReportImageSerializer(model, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ReportDetailSolvedImageAPIView(APIView):
+    """ 보고서 디테일 해결 이미지
+
+        - GET : 디테일 해결 이미지 리스트
+    """
+
+    def get(self, request, id):
+        model = ReportSolvedImage.objects.filter(report=id)
+        serializer = ReportSolvedImageSerializer(model, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class ReportRecommendationAPIView(APIView):
     """ 추천
 

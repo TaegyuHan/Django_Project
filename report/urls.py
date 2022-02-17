@@ -4,10 +4,10 @@ from rest_framework import routers
 from .views import (
     CategoryAPIView, CategoryDetailAPIView,
     ReportAPIView, ReportDetailAPIView,
-    ReportRecommendationAPIView,
     CommentAPIView, CommentDetailAPIView,
     ReportImageviewset, ReportSolvedviewset,
-    ReportDetailCommentsAPIView
+    ReportDetailCommentsAPIView, ReportRecommendationAPIView,
+    ReportDetailImageAPIView, ReportDetailSolvedImageAPIView
 )
 
 router = routers.DefaultRouter()
@@ -21,10 +21,9 @@ urlpatterns = [
     path("", ReportAPIView.as_view()),
     path("<int:id>/", ReportDetailAPIView.as_view()),
 
+    path("<int:id>/solved_images/", ReportDetailSolvedImageAPIView.as_view()),
+    path("<int:id>/images/", ReportDetailImageAPIView.as_view()),
     path("<int:id>/comments/", ReportDetailCommentsAPIView.as_view()),
-
-    # path("<int:id>/images", ReportDetailAPIView.as_view()),
-    # path("<int:id>/solved_images", ReportDetailAPIView.as_view()),
 
     path("recommendation/", ReportRecommendationAPIView.as_view()),
 

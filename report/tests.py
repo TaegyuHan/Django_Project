@@ -315,3 +315,27 @@ class ReportDetailCommentsAPIViewTestCase(TestCase):
         print(request.data)
         self.assertEqual(request.status_code,
                          status.HTTP_200_OK)
+
+
+class ReportDetailImageAPIViewTestCase(TestCase):
+
+    def test_get(self):
+        id = 24
+        request = self.client.get(
+            path=f"https://localhost:8000/report/{id}/images/"
+        )
+        print(request.data)
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)
+
+
+class ReportDetailSolvedImageAPIViewTestCase(TestCase):
+
+    def test_get(self):
+        id = 24
+        request = self.client.get(
+            path=f"https://localhost:8000/report/{id}/images/"
+        )
+        print(request.data)
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)
