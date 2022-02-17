@@ -304,3 +304,14 @@ class UserTestCase(TestCase):
         print(request.data)
         self.assertEqual(request.status_code,
                          status.HTTP_204_NO_CONTENT)
+
+class ReportDetailCommentsAPIViewTestCase(TestCase):
+
+    def test_get(self):
+        id = 11
+        request = self.client.get(
+            path=f"https://localhost:8000/report/{id}/comments/"
+        )
+        print(request.data)
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)

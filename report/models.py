@@ -55,6 +55,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta: # 추천 수 정렬
+        ordering = ['-created_at']
 
 def report_name_file(instance, filename):
     return '/'.join(['static/report', str(instance.report_id), filename])

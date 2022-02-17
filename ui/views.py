@@ -12,7 +12,10 @@ from sql_utils.query_pretty import print_sql
 class NearReportAPIView(APIView):
     """ 메인 페이지 API
 
-        - POST : 10km 이내인 게시물들을 추천 수 내림차순으로 정렬
+        - GET : 10km 이내인 게시물들을 추천 수 내림차순으로 정렬
+            parameter:
+                latitude: 위도
+                longitude: 경도
     """
     def get(self, request):
         # 위도 1도 차이: 약 111.195km

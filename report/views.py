@@ -1,17 +1,18 @@
 from rest_framework import status
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
+from django.db import connection
 from .models import (
-    Category, Report, ReportRecommendation, Comment, ReportImage, ReportSolvedImage
+    Category, Report,
+    ReportRecommendation, Comment,
+    ReportImage, ReportSolvedImage
 )
 from .serializers import (
-    CategorySerializer, ReportSerializer, ReportRecommendationSerializer, CommentSerializer, ReportImageSerializer,
-    ReportSolvedImageSerializer
+    CategorySerializer, CommentSerializer,
+    ReportSerializer, ReportRecommendationSerializer,
+    ReportImageSerializer, ReportSolvedImageSerializer
 )
-
 
 class CategoryAPIView(APIView):
     """ 카테고리
@@ -180,6 +181,34 @@ class ReportDetailAPIView(APIView):
             "content": "Deleted successfully."
         }
         return Response(response_data, status=status.HTTP_204_NO_CONTENT)
+
+
+class ReportDetailCommentsAPIView(APIView):
+    """ 보고서 디테일 댓글
+
+        - GET : 디테일 댓글 리스트
+    """
+
+    def get(self, request, id):
+        with connection.cursor() as cursor:
+            cursor.callproc('SP_GET_REPORT_COMMENTS', [id])
+            data = cursor.fetchall()
+
+        col_name = [
+            "id",
+            "content",
+            "created_at",
+            "updated_at",
+            "firebase_uid",
+            "google_profile_image",
+            "app_name"
+        ]
+
+        json_data = []
+        for row in data:
+            json_data.append(dict(zip(col_name, row)))
+
+        return Response(json_data, status=status.HTTP_200_OK)
 
 
 class ReportRecommendationAPIView(APIView):

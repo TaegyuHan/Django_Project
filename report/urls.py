@@ -6,7 +6,8 @@ from .views import (
     ReportAPIView, ReportDetailAPIView,
     ReportRecommendationAPIView,
     CommentAPIView, CommentDetailAPIView,
-    ReportImageviewset, ReportSolvedviewset
+    ReportImageviewset, ReportSolvedviewset,
+    ReportDetailCommentsAPIView
 )
 
 router = routers.DefaultRouter()
@@ -19,6 +20,11 @@ urlpatterns = [
 
     path("", ReportAPIView.as_view()),
     path("<int:id>/", ReportDetailAPIView.as_view()),
+
+    path("<int:id>/comments/", ReportDetailCommentsAPIView.as_view()),
+
+    # path("<int:id>/images", ReportDetailAPIView.as_view()),
+    # path("<int:id>/solved_images", ReportDetailAPIView.as_view()),
 
     path("recommendation/", ReportRecommendationAPIView.as_view()),
 
