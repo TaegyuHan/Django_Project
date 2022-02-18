@@ -34,3 +34,25 @@ class MainPageAPIViewTestCase(TestCase):
         print(request.data)
         self.assertEqual(request.status_code,
                          status.HTTP_400_BAD_REQUEST)
+
+
+class NearReportListAPIView(TestCase):
+
+    def test_get(self):
+        request = self.client.get(
+            path="http://localhost:8000/ui/report_list/?latitude=37.4239727&longitude=126.6543867"
+        )
+        print(request.data)
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)
+
+
+class NearSolvedReportListAPIView(TestCase):
+
+    def test_get(self):
+        request = self.client.get(
+            path="http://localhost:8000/ui/solved_report_list/?latitude=37.4239727&longitude=126.6543867"
+        )
+        print(request.data)
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)
