@@ -3,7 +3,7 @@ from django.db import models
 class User(models.Model):
     firebase_uid = models.CharField(max_length=28, primary_key=True)
     google_id = models.EmailField()
-    google_profile_image = models.CharField(max_length=100)
+    google_profile_image = models.CharField(max_length=500)
     google_name = models.CharField(max_length=100)
     app_name = models.CharField(max_length=40)
     latitude = models.FloatField(db_index=True) # 위도 ex): 41.40338
