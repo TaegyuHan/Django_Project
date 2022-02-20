@@ -94,20 +94,16 @@ class UserLoginAPIView(APIView):
 
     def post(self, request):
 
-        token = self.get_token_object(id=request.data["firebase_uid"])
-        token_serializer = TokenSerializer(token)
-
         user = self.get_user_object(id=request.data["firebase_uid"])
         user_serializer = UserSerializer(user)
 
-        if token == 404 or user == 404:
+        if user == 404:
             response_data = {
                 "content": "It doesn't exist."
             }
             return Response(response_data, status=status.HTTP_404_NOT_FOUND)
 
         response_data = {
-            "user_info": user_serializer.data,
-            "token": token_serializer.data["key"]
+            "user_info": user_serializer.data
         }
         return Response(response_data, status=status.HTTP_200_OK)
