@@ -82,7 +82,7 @@ class CategoryDetailAPIView(APIView):
         if model == status.HTTP_404_NOT_FOUND:
             return self._doesnt_exist()
 
-        model.delete()
+        # model.delete()
         response_data = {
             "content": "Deleted successfully."
         }
@@ -124,6 +124,13 @@ class ReportDetailAPIView(APIView):
             return Report.objects.get(id=id)
 
         except Report.DoesNotExist:
+            return status.HTTP_404_NOT_FOUND
+
+    def _get_objects(self, model, report_id):
+        try:
+            return model.objects.get(report_id=report_id)
+
+        except model.DoesNotExist:
             return status.HTTP_404_NOT_FOUND
 
     def _doesnt_exist(self):
@@ -175,6 +182,26 @@ class ReportDetailAPIView(APIView):
         # id 가 존재하지 않는경우
         if model == status.HTTP_404_NOT_FOUND:
             return self._doesnt_exist()
+
+        # 댓글 삭제
+        comment_data = self._get_objects(model=Comment, report_id=id)
+        if comment_data != status.HTTP_404_NOT_FOUND:
+            comment_data.delete()
+
+        # 이미지 삭제
+        reprot_image_data = self._get_objects(model=ReportImage, report_id=id)
+        if reprot_image_data != status.HTTP_404_NOT_FOUND:
+            reprot_image_data.delete()
+
+        # 해결 이미지 삭제
+        report_solved_image_data = self._get_objects(model=ReportSolvedImage, report_id=id)
+        if report_solved_image_data != status.HTTP_404_NOT_FOUND:
+            report_solved_image_data.delete()
+
+        # 추천 삭제
+        report_recommendation_data = self._get_objects(model=ReportRecommendation, report_id=id)
+        if report_recommendation_data != status.HTTP_404_NOT_FOUND:
+            report_recommendation_data.delete()
 
         model.delete()
         response_data = {
