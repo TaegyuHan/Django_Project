@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from django.db import connection
+from user.models import  User
 from .models import (
     Category, Report,
     ReportRecommendation, Comment,
@@ -183,6 +184,15 @@ class ReportDetailAPIView(APIView):
         if model == status.HTTP_404_NOT_FOUND:
             return self._doesnt_exist()
 
+        # report 작성자가 존재하지 않는 경우
+        try:
+            report_producer_info = User.objects.get(firebase_uid=model.user_id)
+        except Report.DoesNotExist:
+            response_data = {
+                "content": "Failed to delete. The report author does not exist."
+            }
+            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
+
         # 댓글 삭제
         comment_data = self._get_objects(model=Comment, report_id=id)
         if comment_data != status.HTTP_404_NOT_FOUND:
@@ -203,9 +213,13 @@ class ReportDetailAPIView(APIView):
         if report_recommendation_data != status.HTTP_404_NOT_FOUND:
             report_recommendation_data.delete()
 
+        # 삭제
         model.delete()
+
         response_data = {
-            "content": "Deleted successfully."
+            "content": "Deleted successfully.",
+            "app_nmae": report_producer_info.app_name,
+            "google_profile_image": report_producer_info.google_profile_image
         }
         return Response(response_data, status=status.HTTP_204_NO_CONTENT)
 
