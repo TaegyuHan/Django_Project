@@ -111,7 +111,7 @@ class UserTestCase(TestCase):
                          status.HTTP_201_CREATED)
 
     def test_report_detail_get(self):
-        id = 1 # report 번호
+        id = 211 # report 번호
 
         # 성공 테스트
         request = self.client.get(

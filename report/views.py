@@ -151,13 +151,35 @@ class ReportDetailAPIView(APIView):
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, id):
-        model = self._get_object(id)
+        with connection.cursor() as cursor:
+            cursor.callproc('SP_GET_REPORT_DETAIL', [id])
+            data = cursor.fetchall()
 
-        if model == status.HTTP_404_NOT_FOUND:
-            return self._doesnt_exist()
+        col_name = [
+            "id",
+            "title",
+            "explanation",
+            "latitude",
+            "longitude",
+            "recommendation",
+            "solved",
+            "created_at",
+            "updated_at",
+            "user",
+            "google_profile_image",
+            "app_name",
+            "category"
+        ]
 
-        serializer = ReportSerializer(model)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            json_data = dict(zip(col_name, data[0]))
+        except IndexError: # report 존재 안할 경우
+            response_data = {
+                "content": "The report does not exist."
+            }
+            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(json_data, status=status.HTTP_200_OK)
 
     def put(self, request, id):
         model = self._get_object(id)
@@ -184,15 +206,6 @@ class ReportDetailAPIView(APIView):
         if model == status.HTTP_404_NOT_FOUND:
             return self._doesnt_exist()
 
-        # report 작성자가 존재하지 않는 경우
-        try:
-            report_producer_info = User.objects.get(firebase_uid=model.user_id)
-        except Report.DoesNotExist:
-            response_data = {
-                "content": "Failed to delete. The report author does not exist."
-            }
-            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
-
         # 댓글 삭제
         comment_data = self._get_objects(model=Comment, report_id=id)
         if comment_data != status.HTTP_404_NOT_FOUND:
@@ -217,9 +230,7 @@ class ReportDetailAPIView(APIView):
         model.delete()
 
         response_data = {
-            "content": "Deleted successfully.",
-            "app_nmae": report_producer_info.app_name,
-            "google_profile_image": report_producer_info.google_profile_image
+            "content": "Deleted successfully."
         }
         return Response(response_data, status=status.HTTP_204_NO_CONTENT)
 
