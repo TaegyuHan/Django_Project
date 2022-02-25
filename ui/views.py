@@ -188,3 +188,42 @@ class NearSolvedReportListAPIView(APIView):
                 "content": "Please enter the latitude and longitude."
             }
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MyReportListAPIView(APIView):
+
+    def get(self, request):
+        try:
+
+            with connection.cursor() as cursor:
+                cursor.callproc("SP_GET_MY_REPORT", (request.GET["uid"],))
+                data = cursor.fetchall()
+
+            col_name = [
+                "id",
+                "title",
+                "explanation",
+                "category_id",
+                "image",
+                "user_id",
+                "latitude",
+                "longitude",
+                "recommendation",
+                "solved",
+                "app_name",
+                "google_profile_image",
+                "created_at",
+                "updated_at"
+            ]
+
+            json_data = []
+            for row in data:
+                json_data.append(dict(zip(col_name, row)))
+
+            return Response(json_data, status=status.HTTP_200_OK)
+
+        except KeyError:  # 위도 경도 입력 안
+            response_data = {
+                "content": "Please enter the uid parameter."
+            }
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
