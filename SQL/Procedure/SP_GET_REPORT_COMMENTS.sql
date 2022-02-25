@@ -10,20 +10,21 @@ CREATE PROCEDURE SP_GET_REPORT_COMMENTS(
 )
 BEGIN
 
-      SELECT report_comment.id,
-            report_comment.content,
-            report_comment.created_at,
-            report_comment.updated_at,
-            user_user.firebase_uid,
-            user_user.google_profile_image,
-            user_user.app_name
+      SELECT 
+            report_comment.`id`,
+            report_comment.`content`,
+            report_comment.`created_at`,
+            report_comment.`updated_at`,
+            user_user.`firebase_uid`,
+            user_user.`google_profile_image`,
+            user_user.`app_name`
         FROM ( SELECT *
             FROM report_comment
             WHERE report_comment.report_id=`in_report_id`
         ) AS report_comment
         LEFT JOIN user_user AS user_user
-        ON report_comment.user_id = user_user.firebase_uid
-		  ORDER BY report_comment.created_at ASC;
+        ON report_comment.`user_id` = user_user.`firebase_uid`
+		  ORDER BY report_comment.`created_at` ASC;
 
 END $$
 DELIMITER ;

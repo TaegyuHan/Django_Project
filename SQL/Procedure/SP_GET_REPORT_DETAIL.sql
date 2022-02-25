@@ -21,12 +21,12 @@ BEGIN
 		report_report.`created_at`,
 		report_report.`updated_at`,
 		report_report.`user_id`,
-		user_user.`google_name`,
+		user_user.`google_profile_image`,
 		user_user.`app_name`,
 		report_report.`category_id`
     FROM ( SELECT *
             FROM report_report
-            WHERE report_report.`id` = 211 ) AS report_report
+            WHERE report_report.`id` = `in_report_id` ) AS report_report
     
     INNER JOIN user_user
     ON user_user.`firebase_uid` = report_report.`user_id`;
