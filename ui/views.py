@@ -204,6 +204,7 @@ class MyReportListAPIView(APIView):
                 "title",
                 "explanation",
                 "category_id",
+                "content",
                 "image",
                 "user_id",
                 "latitude",
@@ -222,7 +223,7 @@ class MyReportListAPIView(APIView):
 
             return Response(json_data, status=status.HTTP_200_OK)
 
-        except KeyError:  # 위도 경도 입력 안
+        except KeyError:
             response_data = {
                 "content": "Please enter the uid parameter."
             }

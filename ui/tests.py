@@ -62,7 +62,7 @@ class MyReportListAPIView(TestCase):
 
     def test_get(self):
         request = self.client.get(
-            path="http://localhost:8000/ui/my_report_list/?uid=tiVRbcLxEKPcmsjhGZm0pRnA_10"
+            path="http://localhost:8000/ui/my_report_list/?uid=tiVRbcLxEKPcmsjhGZm0pRnA_100"
         )
         print(request.data)
         self.assertEqual(request.status_code,
