@@ -168,7 +168,7 @@ class UserTestCase(TestCase):
 
     def test_report_detail_delete(self):
         # 삭제 테스트
-        id = 211  # report 번호
+        id = 101  # report 번호
         request = self.client.delete(
             path=f"https://localhost:8000/report/{id}/"
         )

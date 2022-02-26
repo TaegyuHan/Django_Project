@@ -129,7 +129,7 @@ class ReportDetailAPIView(APIView):
 
     def _get_objects(self, model, report_id):
         try:
-            return model.objects.get(report_id=report_id)
+            return model.objects.filter(report_id=report_id)
 
         except model.DoesNotExist:
             return status.HTTP_404_NOT_FOUND

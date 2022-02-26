@@ -15,6 +15,7 @@ BEGIN
  		report_report.`title`,	 		
  		report_report.`explanation`,
  		report_report.`category_id`,
+		report_category.`content`,
  		report_reportimage.`image`,
  		report_report.`user_id`,
  		report_report.`latitude`,
