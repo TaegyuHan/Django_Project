@@ -14,6 +14,8 @@ BEGIN
  		report_report.`id`,
  		report_report.`title`,	 		
  		report_report.`explanation`,
+		report_report.`solved_title`,
+ 		report_report.`solved_explanation`,
  		report_report.`category_id`,
 		report_category.`content`,
  		report_reportimage.`image`,
@@ -26,7 +28,8 @@ BEGIN
  		user_user.`google_profile_image`,
  		report_report.`created_at`,
  		report_report.`updated_at`,
- 		report_report.`category_id`
+ 		report_report.`solved_created_at`,
+ 		report_report.`solved_updated_at`
     FROM ( SELECT *
             FROM report_report
             WHERE report_report.`user_id` = `in_uid`) AS report_report

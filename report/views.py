@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from django.db import connection
-from user.models import  User
 from .models import (
     Category, Report,
     ReportRecommendation, Comment,
@@ -159,12 +158,16 @@ class ReportDetailAPIView(APIView):
             "id",
             "title",
             "explanation",
+            "solved_title",
+            "solved_explanation",
             "latitude",
             "longitude",
             "recommendation",
             "solved",
             "created_at",
             "updated_at",
+            "solved_created_at",
+            "solved_updated_at",
             "user",
             "google_profile_image",
             "app_name",
@@ -234,6 +237,14 @@ class ReportDetailAPIView(APIView):
         }
         return Response(response_data, status=status.HTTP_204_NO_CONTENT)
 
+    def patch(self, request, id):
+        model = Report.objects.get(id=id)
+        serializer = ReportSerializer(model, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 class ReportDetailCommentsAPIView(APIView):
     """ 보고서 디테일 댓글

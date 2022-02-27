@@ -19,12 +19,16 @@ class Report(models.Model):
         Category, related_name="category_report", on_delete=models.CASCADE)
     title = models.TextField() # 제목
     explanation = models.TextField() # 내용
+    solved_title = models.TextField(default="") # 해결 완료 제목
+    solved_explanation = models.TextField(default="") # 해결 완료 내용
     latitude = models.FloatField(db_index=True) # 위도 ex): 41.40338
     longitude = models.FloatField(db_index=True) # 경도 ex): 2.17403
     recommendation = models.IntegerField() # 추천 수
     solved = models.BooleanField() # 해결 상태
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    solved_created_at = models.DateTimeField(auto_now_add=True)
+    solved_updated_at = models.DateTimeField(auto_now=True)
 
     class Meta: # 추천 수 정렬
         ordering = ['-recommendation']

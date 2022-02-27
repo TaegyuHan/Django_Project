@@ -91,14 +91,16 @@ class UserTestCase(TestCase):
                          status.HTTP_400_BAD_REQUEST)
 
         # 성공 테스트
-        json_data = {
-            "title": "post test",
-            "explanation": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            "latitude": 41.40338,
-            "longitude": 2.17403,
+        json_data =     {
+            "title": "POST test",
+            "explanation": "contetn",
+            "latitude": 35.158728,
+            "longitude": 129.1603681,
             "recommendation": 0,
             "solved": 0,
-            "user": "tiVRbcLxEKPcmsjhGZm0pRnAsxg6",
+            "created_at": "2022-02-17T22:56:18+09:00",
+            "updated_at": "2022-02-17T22:56:19+09:00",
+            "user": "tiVRbcLxEKPcmsjhGZm0pRnA_200",
             "category": 2
         }
         request = self.client.post(
@@ -177,6 +179,24 @@ class UserTestCase(TestCase):
         self.assertEqual(request.status_code,
                          status.HTTP_204_NO_CONTENT)
 
+    def test_report_detail_patch(self):
+        id = 781 # report 번호
+        json_data = {
+            "solved_title": "patch 성공",
+            "solved_explanation": "patch 성공",
+            "solved": 1,
+            "solved_created_at": "2022-02-30T23:42:55.342219+09:00",
+            "solved_updated_at": "2022-02-30T23:42:55.646117+09:00"
+        }
+        request = self.client.patch(
+            path=f"https://localhost:8000/report/{id}/",
+            data=json_data,
+            content_type='application/json'
+        )
+        print(request.data)
+
+        self.assertEqual(request.status_code,
+                         status.HTTP_200_OK)
 
     def test_report_recommendation_get(self):
         # 성공 테스트

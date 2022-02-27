@@ -17,6 +17,8 @@ BEGIN
             report_report.`id`,
             report_report.`title`,
             report_report.`explanation`,
+            report_report.`solved_title`,
+            report_report.`solved_explanation`,
             report_report.`category_id`,
             report_category.`content`,
             report_reportsolvedimage.`image`,
@@ -28,7 +30,9 @@ BEGIN
             user_user.`app_name`,
             user_user.`google_profile_image`,
             report_report.`created_at`,
-            report_report.`updated_at`
+            report_report.`updated_at`,
+            report_report.`solved_created_at`,
+            report_report.`solved_updated_at`
             FROM ( SELECT *
                     FROM report_report
                     WHERE (report_report.`latitude` >= `in_bot_latitude`
@@ -43,7 +47,7 @@ BEGIN
             LEFT JOIN report_category AS report_category
             ON report_report.`category_id` = report_category.`id`
 
-            LEFT JOIN ( SELECT 
+            LEFT JOIN ( SELECT DISTINCT 
                             report_reportsolvedimage.`image`,
                             report_reportsolvedimage.`report_id`
                         FROM report_reportsolvedimage

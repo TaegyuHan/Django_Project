@@ -105,6 +105,8 @@ class NearReportListAPIView(APIView):
                     "id",
                     "title",
                     "explanation",
+                    "solved_title",
+                    "solved_explanation",
                     "category_id",
                     "content",
                     "image",
@@ -116,7 +118,9 @@ class NearReportListAPIView(APIView):
                     "app_name",
                     "google_profile_image",
                     "created_at",
-                    "updated_at"
+                    "updated_at",
+                    "solved_created_at",
+                    "solved_updated_at",
                 ]
 
                 json_data = []
@@ -163,6 +167,8 @@ class NearSolvedReportListAPIView(APIView):
                     "id",
                     "title",
                     "explanation",
+                    "solved_title",
+                    "solved_explanation",
                     "category_id",
                     "content",
                     "image",
@@ -174,7 +180,9 @@ class NearSolvedReportListAPIView(APIView):
                     "app_name",
                     "google_profile_image",
                     "created_at",
-                    "updated_at"
+                    "updated_at",
+                    "solved_created_at",
+                    "solved_updated_at",
                 ]
 
                 json_data = []
@@ -203,6 +211,8 @@ class MyReportListAPIView(APIView):
                 "id",
                 "title",
                 "explanation",
+                "solved_title",
+                "solved_explanation",
                 "category_id",
                 "content",
                 "image",
@@ -214,7 +224,9 @@ class MyReportListAPIView(APIView):
                 "app_name",
                 "google_profile_image",
                 "created_at",
-                "updated_at"
+                "updated_at",
+                "solved_created_at",
+                "solved_updated_at"
             ]
 
             json_data = []
