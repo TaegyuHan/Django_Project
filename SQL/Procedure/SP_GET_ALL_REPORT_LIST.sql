@@ -1,11 +1,11 @@
 -- # -------------------------------- #
 -- 현위치의 주변의
--- solved report 리스트를 가져 오는 프로시져
+-- solved report, report 리스트  를 가져 오는 프로시져
 -- # -------------------------------- #
 
-DROP PROCEDURE IF EXISTS SP_GET_SOLVED_REPORT_LIST;
+DROP PROCEDURE IF EXISTS SP_GET_ALL_REPORT_LIST;
 DELIMITER $$
-CREATE PROCEDURE SP_GET_SOLVED_REPORT_LIST(
+CREATE PROCEDURE SP_GET_ALL_REPORT_LIST(
     IN `in_bot_latitude` INT,
     IN `in_top_latitude` INT,
     IN `in_bot_longitude` INT,
@@ -41,8 +41,7 @@ BEGIN
                     WHERE (report_report.`latitude` >= `in_bot_latitude`
                         AND report_report.`latitude` <= `in_top_latitude`
                         AND report_report.`longitude` >= `in_bot_longitude`
-                        AND report_report.`longitude` <= `in_top_longitude`
-                        AND report_report.`solved` = 1)) AS report_report
+                        AND report_report.`longitude` <= `in_top_longitude`)) AS report_report
                         
             LEFT JOIN user_user AS user_user
             ON report_report.`user_id` = user_user.`firebase_uid`
@@ -62,4 +61,4 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_GET_SOLVED_REPORT_LIST(37.2239727, 37.6239727, 125.8543867, 127.4543867);
+CALL SP_GET_ALL_REPORT_LIST(37.2239727, 37.6239727, 125.8543867, 127.4543867);
