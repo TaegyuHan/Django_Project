@@ -1,9 +1,10 @@
+from django.forms.models import model_to_dict
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .models import User
-from .serializers import UserSerializer, TokenSerializer
+from .serializers import UserSerializer
 
 
 class UserJoinAPIView(APIView):
@@ -13,19 +14,62 @@ class UserJoinAPIView(APIView):
     """
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            token_data = Token.objects.create(user_id=request.data['firebase_uid']) # 토큰 생성
+        try:
+            # 데이터 검색 or 생성
+            model, created = User.objects.get_or_create(
+                firebase_uid=request.data["firebase_uid"],
+                defaults={
+                    "google_id": request.data["google_id"],
+                    "google_profile_image": request.data["google_profile_image"],
+                    "google_name": request.data["google_name"],
+                    "app_name": request.data["app_name"],
+                    "latitude": request.data["latitude"],
+                    "longitude": request.data["longitude"],
+                    "address": request.data["address"],
+                    "updated_at": request.data["updated_at"]
+                }
+            )
+
+            if not created: # 기존에 존재하는 회원 데이터 업데이트
+                model.google_id = request.data["google_id"]
+                model.google_profile_image = request.data["google_profile_image"]
+                model.google_name = request.data["google_name"]
+                model.app_name = request.data["app_name"]
+                model.latitude = request.data["latitude"]
+                model.longitude = request.data["longitude"]
+                model.address = request.data["address"]
+                model.updated_at = request.data["updated_at"]
+            model.save()
 
             response_data = {
-                "user_info": serializer.data,
-                "token": token_data.key
+                "user_info": {
+                    "firebase_uid": model.firebase_uid,
+                    "google_id": model.google_id,
+                    "google_profile_image": model.google_profile_image,
+                    "google_name": model.google_name,
+                    "app_name": model.app_name,
+                    "latitude": model.latitude,
+                    "longitude": model.longitude,
+                    "address": model.address,
+                    "created_at": model.created_at,
+                    "updated_at": model.updated_at,
+                }
             }
-
             return Response(response_data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except KeyError as e:
+            error = {
+                "error": "Please add the perfect data.",
+                "except": "KeyError"
+            }
+            return Response(error, status=status.HTTP_400_BAD_REQUEST)
+        except AttributeError as e:
+            error = {
+                "error": "Please add the perfect data.",
+                "except": "AttributeError"
+            }
+            return Response(error, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserDeleteAPIView(APIView):

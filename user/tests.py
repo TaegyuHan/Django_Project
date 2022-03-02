@@ -5,6 +5,7 @@ from django.test import TestCase
 
 
 class UserTestCase(TestCase):
+
     def setUp(self) -> None:
         os.environ.get("DJANGO_SETTINGS_MODULE")
         pass
@@ -12,14 +13,17 @@ class UserTestCase(TestCase):
     def test_user_join_create_post(self):
         """ 회원가입  테스트 """
         json_data = {
-			"firebase_uid": "tiVRbcLxEKPcmsjhGZm0pRnAsxg6",
-			"google_id": "test@email.com",
-			"google_profile_image": "https://image/url",
-			"google_name": "test_google_name",
-			"app_name": "test_app_name",
-			"latitude": 41.40338,
-			"longitude": 2.17403
-		}
+            "firebase_uid": "tiVRbcLxEKPcmsjhGZm0pRnA_100",
+            "google_id": "test22@email.com",
+            "google_profile_image": "https://image/url",
+            "google_name": "test_google_name",
+            "app_name": "test_app_name",
+            "latitude": 41.40338,
+            "longitude": 2.17403,
+            "address": "82, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea",
+            "created_at": "2022-02-16T07:53:54.613725Z",
+            "updated_at": "2022-02-16T07:53:54.613768Z"
+        }
         request = self.client.post(
             path="http://localhost:8000/user/join",
             data=json_data,
