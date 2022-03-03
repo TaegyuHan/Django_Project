@@ -24,7 +24,7 @@ BEGIN
             report_report.`solved_explanation`,
             report_report.`category_id`,
             report_category.`content`,
-            report_reportsolvedimage.`image`,
+            report_reportimage.`image`,
             report_report.`user_id`,
             report_report.`latitude`,
             report_report.`longitude`,
@@ -50,11 +50,11 @@ BEGIN
             ON report_report.`category_id` = report_category.`id`
 
             LEFT JOIN ( SELECT DISTINCT 
-                            report_reportsolvedimage.`image`,
-                            report_reportsolvedimage.`report_id`
-                        FROM report_reportsolvedimage
-                        GROUP BY report_reportsolvedimage.`report_id` ) AS report_reportsolvedimage
-            ON report_reportsolvedimage.`report_id` = report_report.`id`
+                            report_reportimage.`image`,
+                            report_reportimage.`report_id`
+                        FROM report_reportimage
+                        GROUP BY report_reportimage.`report_id` ) AS report_reportimage
+            ON report_reportimage.`report_id` = report_report.`id`
     ) AS order_tbl
     ORDER BY report_report.`created_at` DESC;
 
