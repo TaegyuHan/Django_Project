@@ -122,13 +122,6 @@ class UserLoginAPIView(APIView):
         - POST : 로그인
     """
 
-    def get_token_object(self, id):
-        try:
-            return Token.objects.get(user_id=id)
-
-        except Token.DoesNotExist:
-            return status.HTTP_404_NOT_FOUND
-
     def get_user_object(self, id):
         try:
             return User.objects.get(firebase_uid=id)
@@ -139,7 +132,10 @@ class UserLoginAPIView(APIView):
     def post(self, request):
 
         user = self.get_user_object(id=request.data["firebase_uid"])
-        user_serializer = UserSerializer(user)
+
+        model_dict = model_to_dict(user)
+        model_dict["created_at"] = user.created_at
+        model_dict["updated_at"] = user.updated_at
 
         if user == 404:
             response_data = {
@@ -148,6 +144,6 @@ class UserLoginAPIView(APIView):
             return Response(response_data, status=status.HTTP_404_NOT_FOUND)
 
         response_data = {
-            "user_info": user_serializer.data
+            "user_info": model_dict
         }
         return Response(response_data, status=status.HTTP_200_OK)
