@@ -138,12 +138,10 @@ class UserLoginAPIView(APIView):
                 "content": "It doesn't exist."
             }
             return Response(response_data, status=status.HTTP_404_NOT_FOUND)
-        
-        model_dict = model_to_dict(user)
-        model_dict["created_at"] = user.created_at
-        model_dict["updated_at"] = user.updated_at
+
+        user_serializer = UserSerializer(user)
 
         response_data = {
-            "user_info": model_dict
+            "user_info": user_serializer.data
         }
         return Response(response_data, status=status.HTTP_200_OK)
