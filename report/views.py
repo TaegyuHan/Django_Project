@@ -170,10 +170,12 @@ class ReportDetailAPIView(APIView):
             "solved_updated_at",
             "user",
             "google_profile_image",
+            "app_name",
+
             "solved_user",
             "solved_google_profile_image",
             "solved_app_name",
-            "app_name",
+
             "category"
         ]
 
