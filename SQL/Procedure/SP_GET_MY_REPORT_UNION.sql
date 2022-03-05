@@ -50,7 +50,7 @@ BEGIN
             LEFT JOIN report_category AS report_category
             ON report_report.`category_id` = report_category.`id`
 
-            LEFT JOIN ( SELECT DISTINCT 
+            LEFT JOIN ( SELECT 
                             report_reportsolvedimage.`image`,
                             report_reportsolvedimage.`report_id`
                         FROM report_reportsolvedimage
