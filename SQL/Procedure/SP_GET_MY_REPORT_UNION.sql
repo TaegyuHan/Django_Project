@@ -32,6 +32,11 @@ BEGIN
             report_report.`solved`,
             user_user.`app_name`,
             user_user.`google_profile_image`,
+
+            report_report.`solved_user`,
+            report_report.`solved_google_profile_image`,
+            report_report.`solved_app_name`,
+
             report_report.`created_at`,
             report_report.`updated_at`,
             report_report.`solved_created_at`,
@@ -78,6 +83,12 @@ BEGIN
                 report_report.`solved`,
                 user_user.`app_name`,
                 user_user.`google_profile_image`,
+
+                report_report.`solved_user`,
+                report_report.`solved_google_profile_image`,
+                report_report.`solved_app_name`,
+
+
                 report_report.`created_at`,
                 report_report.`updated_at`,
                 report_report.`solved_created_at`,

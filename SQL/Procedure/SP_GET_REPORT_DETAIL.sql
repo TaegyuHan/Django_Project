@@ -27,6 +27,11 @@ BEGIN
 		report_report.`user_id`,
 		user_user.`google_profile_image`,
 		user_user.`app_name`,
+
+		report_report.`solved_user`,
+		report_report.`solved_google_profile_image`,
+		report_report.`solved_app_name`,
+
 		report_report.`category_id`
     FROM ( SELECT *
             FROM report_report
@@ -38,4 +43,4 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_GET_REPORT_DETAIL(211);
+CALL SP_GET_REPORT_DETAIL(104);

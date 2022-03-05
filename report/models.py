@@ -25,6 +25,12 @@ class Report(models.Model):
     longitude = models.FloatField(db_index=True) # 경도 ex): 2.17403
     recommendation = models.IntegerField() # 추천 수
     solved = models.BooleanField() # 해결 상태
+
+    # solved 정보
+    solved_user = models.TextField(default="", max_length=30)
+    solved_google_profile_image = models.TextField(default="", max_length=500)
+    solved_app_name = models.TextField(default="", max_length=100)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     solved_created_at = models.DateTimeField(auto_now_add=True)
