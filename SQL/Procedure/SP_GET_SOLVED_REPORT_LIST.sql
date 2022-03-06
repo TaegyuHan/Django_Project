@@ -62,7 +62,7 @@ BEGIN
                         GROUP BY report_reportsolvedimage.`report_id` ) AS report_reportsolvedimage
             ON report_reportsolvedimage.`report_id` = report_report.`id`
     ) AS order_tbl
-    ORDER BY report_report.`created_at` DESC;
+    ORDER BY report_report.`solved_updated_at` DESC;
 
 END $$
 DELIMITER ;
