@@ -223,7 +223,7 @@ class NearReportListAllAPIView(APIView):
             bot_longitude, top_longitude = longitude - tmp, longitude + tmp
 
             with connection.cursor() as cursor:
-                cursor.callproc('SP_GET_MY_REPORT_UNION', [
+                cursor.callproc('SP_GET_ALL_REPORT_UNION', [
                     bot_latitude,
                     top_latitude,
                     bot_longitude,

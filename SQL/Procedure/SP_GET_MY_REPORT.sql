@@ -10,7 +10,6 @@ CREATE PROCEDURE SP_GET_MY_REPORT(
 )
 BEGIN
 
-
     SELECT *
     FROM (
 
@@ -41,7 +40,8 @@ BEGIN
 			report_report.`solved_updated_at`
 		FROM ( SELECT *
 				FROM report_report
-				WHERE report_report.`user_id` = `in_uid`) AS report_report
+				WHERE report_report.`user_id` = `in_uid`
+				OR report_report.`solved_user` = `in_uid`) AS report_report
 					
 		LEFT JOIN user_user AS user_user
 		ON report_report.`user_id` = user_user.`firebase_uid`
