@@ -27,7 +27,7 @@ class Report(models.Model):
     solved = models.BooleanField() # 해결 상태
 
     # solved 정보
-    solved_user = models.TextField(default="", max_length=30)
+    solved_user = models.TextField(default="", max_length=30, db_index=True)
     solved_google_profile_image = models.TextField(default="", max_length=500)
     solved_app_name = models.TextField(default="", max_length=100)
 
