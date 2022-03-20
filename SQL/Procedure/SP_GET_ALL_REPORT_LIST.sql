@@ -6,10 +6,10 @@
 DROP PROCEDURE IF EXISTS SP_GET_ALL_REPORT_LIST;
 DELIMITER $$
 CREATE PROCEDURE SP_GET_ALL_REPORT_LIST(
-    IN `in_bot_latitude` INT,
-    IN `in_top_latitude` INT,
-    IN `in_bot_longitude` INT,
-    IN `in_top_longitude` INT
+    IN `in_bot_latitude` DOUBLE,
+    IN `in_top_latitude` DOUBLE,
+    IN `in_bot_longitude` DOUBLE,
+    IN `in_top_longitude` DOUBLE
 )
 BEGIN
 

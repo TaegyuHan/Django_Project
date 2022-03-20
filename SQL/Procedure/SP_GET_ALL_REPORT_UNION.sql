@@ -6,10 +6,10 @@
 DROP PROCEDURE IF EXISTS SP_GET_ALL_REPORT_UNION;
 DELIMITER $$
 CREATE PROCEDURE SP_GET_ALL_REPORT_UNION(
-    IN `in_bot_latitude` INT,
-    IN `in_top_latitude` INT,
-    IN `in_bot_longitude` INT,
-    IN `in_top_longitude` INT
+    IN `in_bot_latitude` DOUBLE,
+    IN `in_top_latitude` DOUBLE,
+    IN `in_bot_longitude` DOUBLE,
+    IN `in_top_longitude` DOUBLE
 )
 BEGIN
 
@@ -121,4 +121,4 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_GET_ALL_REPORT_UNION(37.2239727, 37.6239727, 125.8543867, 127.4543867);
+CALL SP_GET_ALL_REPORT_UNION(36.5692963, 36.9692963, 126.1301306, 127.7301306);
